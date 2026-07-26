@@ -1,1 +1,136 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mission Syedi Ikram E Millat</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="config.js"></script>
+<script defer src="script.js"></script>
+
+</head>
+
+<body>
+
+<div class="login-page">
+
+<div class="login-box">
+
+<h1>Mission Syedi Ikram E Millat</h1>
+
+<p>Member Login</p>
+
+<input
+type="text"
+id="mobile"
+placeholder="Mobile Number">
+
+<input
+type="password"
+id="password"
+placeholder="Password">
+
+<button onclick="login()">
+Login
+</button>
+
+<div id="loginStatus"></div>
+
+</div>
+
+</div>
+
+<div id="dashboard" style="display:none;">
+
+<header>
+
+<h2>
+Mission Syedi Ikram E Millat
+</h2>
+
+<button onclick="logout()">
+Logout
+</button>
+
+</header>
+
+<nav>
+
+<button onclick="showPage('profile')">
+Profile
+</button>
+
+<button onclick="showPage('duties')">
+Duties
+</button>
+
+<button onclick="showPage('announcements')">
+Announcements
+</button>
+
+<button onclick="showPage('contacts')">
+Contacts
+</button>
+
+</nav>
+
+<main>
+
+<section id="profilePage">
+
+<h3>
+Member Profile
+</h3>
+
+<div id="profileData"></div>
+
+</section>
+
+<section
+id="dutiesPage"
+style="display:none;">
+
+<h3>
+Today's Duties
+</h3>
+
+<div id="dutiesList"></div>
+
+</section>
+
+<section
+id="announcementsPage"
+style="display:none;">
+
+<h3>
+Announcements
+</h3>
+
+<div id="announcementList"></div>
+
+</section>
+
+<section
+id="contactsPage"
+style="display:none;">
+
+<h3>
+Contact Directory
+</h3>
+
+<div id="contactList"></div>
+
+</section>
+
+</main>
+
+</div>
+
+</body>
+</html>
