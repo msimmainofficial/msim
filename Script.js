@@ -1,97 +1,49 @@
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+function showPage(page){
+
+document.getElementById("profilePage").style.display="none";
+document.getElementById("dutiesPage").style.display="none";
+document.getElementById("announcementsPage").style.display="none";
+document.getElementById("contactsPage").style.display="none";
+
+if(page==="profile"){
+document.getElementById("profilePage").style.display="block";
 }
 
-body{
-background:#2d1b0f;
-color:#fff;
+if(page==="duties"){
+document.getElementById("dutiesPage").style.display="block";
 }
 
-.login-page{
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-padding:20px;
+if(page==="announcements"){
+document.getElementById("announcementsPage").style.display="block";
 }
 
-.login-box{
-width:100%;
-max-width:400px;
-background:#caa54a;
-padding:25px;
-border-radius:15px;
-box-shadow:0 0 20px rgba(0,0,0,.3);
+if(page==="contacts"){
+document.getElementById("contactsPage").style.display="block";
 }
 
-.login-box h1{
-text-align:center;
-color:#2d1b0f;
-margin-bottom:10px;
-font-size:24px;
 }
 
-.login-box p{
-text-align:center;
-margin-bottom:20px;
-color:#2d1b0f;
+async function login(){
+
+const mobile=document.getElementById("mobile").value.trim();
+const password=document.getElementById("password").value.trim();
+
+if(!mobile||!password){
+
+document.getElementById("loginStatus").innerHTML="Enter Mobile & Password";
+
+return;
+
 }
 
-input{
-width:100%;
-padding:12px;
-margin-bottom:15px;
-border:none;
-border-radius:8px;
-font-size:16px;
+document.getElementById("loginStatus").innerHTML="Checking...";
+
+/* Database Login next step */
+
 }
 
-button{
-width:100%;
-padding:12px;
-background:#2d1b0f;
-color:white;
-border:none;
-border-radius:8px;
-font-size:16px;
-cursor:pointer;
-}
+function logout(){
 
-button:hover{
-opacity:.9;
-}
+location.reload();
 
-header{
-background:#caa54a;
-color:#2d1b0f;
-padding:15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
 }
-
-nav{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-padding:15px;
-}
-
-nav button{
-background:#caa54a;
-color:#2d1b0f;
-}
-
-main{
-padding:15px;
-}
-
-section{
-background:#3a2415;
-padding:15px;
-border-radius:10px;
-margin-bottom:15px;
-  }
