@@ -1,137 +1,92 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mission Syedi Ikram E Millat</title>
+    <title>Mission Syedi Ikram E Millat</title>
 
-<link rel="stylesheet" href="style.css">
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script src="config.js"></script>
-<script defer src="script.js"></script>
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="login-page">
+    <div class="container">
 
-<div class="login-box">
+        <h1>Mission Syedi Ikram E Millat</h1>
+        <p class="subtitle">Member Portal</p>
 
-<h1>Mission Syedi Ikram E Millat</h1>
 
-<p>Member Login</p>
+        <!-- Login Box -->
+        <div class="login-box">
 
-<input
-type="text"
-id="mobile"
-placeholder="Mobile Number">
+            <h2>Member Login</h2>
 
-<input
-type="password"
-id="password"
-placeholder="Password">
+            <input 
+                type="tel" 
+                id="mobile"
+                placeholder="Enter Mobile Number"
+            >
 
-<button onclick="login()">
-Login
-</button>
+            <input 
+                type="password" 
+                id="password"
+                placeholder="Enter Password"
+            >
 
-<div id="loginStatus"></div>
+            <button id="loginBtn">
+                Login
+            </button>
 
-</div>
+            <p id="message"></p>
 
-</div>
+        </div>
 
-<div id="dashboard" style="display:none;">
 
-<header>
+        <!-- Dashboard (will activate after login) -->
+        <div id="dashboard" style="display:none;">
 
-<h2>
-Mission Syedi Ikram E Millat
-</h2>
+            <h2>Welcome</h2>
 
-<button onclick="logout()">
-Logout
-</button>
+            <div class="card">
+                <h3>Member Details</h3>
+                <p id="memberName"></p>
+                <p id="memberMobile"></p>
+            </div>
 
-</header>
 
-<nav>
+            <div class="card">
+                <h3>ID Card</h3>
+                <p>Coming Soon</p>
+            </div>
 
-<button onclick="showPage('profile')">
-Profile
-</button>
 
-<button onclick="showPage('duties')">
-Duties
-</button>
+            <div class="card">
+                <h3>Duties</h3>
+                <p>Coming Soon</p>
+            </div>
 
-<button onclick="showPage('announcements')">
-Announcements
-</button>
 
-<button onclick="showPage('contacts')">
-Contacts
-</button>
+            <div class="card">
+                <h3>Announcements</h3>
+                <p>Coming Soon</p>
+            </div>
 
-</nav>
 
-<main>
+            <div class="card">
+                <h3>Contact</h3>
+                <p>Coming Soon</p>
+            </div>
 
-<section id="profilePage">
+        </div>
 
-<h3>
-Member Profile
-</h3>
 
-<div id="profileData"></div>
+    </div>
 
-</section>
 
-<section
-id="dutiesPage"
-style="display:none;">
+    <!-- Supabase + Script -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
 
-<h3>
-Today's Duties
-</h3>
-
-<div id="dutiesList"></div>
-
-</section>
-
-<section
-id="announcementsPage"
-style="display:none;">
-
-<h3>
-Announcements
-</h3>
-
-<div id="announcementList"></div>
-
-</section>
-
-<section
-id="contactsPage"
-style="display:none;">
-
-<h3>
-Contact Directory
-</h3>
-
-<div id="contactList"></div>
-
-</section>
-
-</main>
-
-</div>
-<script src="config.js"></script>
-<script src="script.js"></script>
 </body>
 </html>
