@@ -1,108 +1,372 @@
-document.getElementById("loginBtn").addEventListener("click", login);
+// ========================================
+// MSIM WEBSITE
+// SCRIPT.JS
+// PART 1 OF 2
+// ========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const loginBtn = document.getElementById("loginBtn");
+
+    if (loginBtn) {
+        loginBtn.addEventListener("click", login);
+    }
+
+    closeMenu();
+
+});
+
+// =========================
+// PAGE NAVIGATION
+// =========================
 
 function showPage(page){
 
-document.getElementById("profilePage").style.display="none";
-document.getElementById("dutiesPage").style.display="none";
-document.getElementById("announcementsPage").style.display="none";
-document.getElementById("contactsPage").style.display="none";
+    const pages = [
+        "profile",
+        "duties",
+        "announcements",
+        "contacts",
+        "settings"
+    ];
 
-document.getElementById(page+"Page").style.display="block";
+    pages.forEach(p=>{
+
+        const element=document.getElementById(p+"Page");
+
+        if(element){
+            element.style.display="none";
+        }
+
+    });
+
+    const current=document.getElementById(page+"Page");
+
+    if(current){
+        current.style.display="block";
+    }
+
+    closeMenu();
 
 }
+
+// =========================
+// DRAWER
+// =========================
+
+function openMenu(){
+
+    const drawer=document.getElementById("drawer");
+    const overlay=document.getElementById("drawerOverlay");
+
+    if(drawer){
+        drawer.classList.add("active");
+    }
+
+    if(overlay){
+        overlay.classList.add("active");
+    }
+
+}
+
+function closeMenu(){
+
+    const drawer=document.getElementById("drawer");
+    const overlay=document.getElementById("drawerOverlay");
+
+    if(drawer){
+        drawer.classList.remove("active");
+    }
+
+    if(overlay){
+        overlay.classList.remove("active");
+    }
+
+}
+
+function toggleMenu(){
+
+    const drawer=document.getElementById("drawer");
+
+    if(!drawer) return;
+
+    if(drawer.classList.contains("active")){
+        closeMenu();
+    }else{
+        openMenu();
+    }
+
+}
+
+// =========================
+// LOGIN
+// =========================
 
 async function login(){
 
-const mobile=document.getElementById("mobile").value.trim();
-const password=document.getElementById("password").value.trim();
-const message=document.getElementById("message");
+    const mobile=document.getElementById("mobile").value.trim();
 
-if(!mobile||!password){
+    const password=document.getElementById("password").value.trim();
 
-message.innerHTML="Enter Mobile Number & Password";
-return;
+    const message=document.getElementById("message");
 
-}
+    if(!mobile || !password){
 
-message.innerHTML="Checking...";
+        message.innerHTML="Enter Mobile Number & Password";
 
-try{
+        return;
 
-const {data,error}=await supabaseClient
+    }
 
-.from("members")
+    message.innerHTML="Checking...";
 
-.select("*")
+    try{
 
-.eq("mobile",mobile)
+        const {data,error}=await supabaseClient
 
-.eq("password",password)
+        .from("members")
 
-.maybeSingle();
+        .select("*")
 
-if(error){
+        .eq("mobile",mobile)
 
-message.innerHTML=error.message;
-return;
+        .eq("password",password)
 
-}
+        .maybeSingle();
 
-if(!data){
+        if(error){
 
-message.innerHTML="Invalid Mobile Number or Password";
-return;
+            message.innerHTML=error.message;
 
-}
+            return;
 
-document.querySelector(".login-page").style.display="none";
+        }
 
-document.getElementById("dashboard").style.display="block";
+        if(!data){
 
-document.getElementById("memberPhoto").src=
-data.photo_link||"https://placehold.co/200x200";
+            message.innerHTML="Invalid Mobile Number or Password";
 
-document.getElementById("memberName").innerHTML=
-"Name : "+data.name;
+            return;
 
-document.getElementById("memberMobile").innerHTML=
-"Mobile : "+data.mobile;
+        }
 
-document.getElementById("memberMemberId").innerHTML=
-"Member ID : "+data.member_id;
+        document.querySelector(".login-page").style.display="none";
 
-document.getElementById("memberBranch").innerHTML=
-"Branch : "+data.branch;
+        document.getElementById("dashboard").style.display="block";
 
-document.getElementById("memberStatus").innerHTML=
-"Status : "+data.status;
+        document.getElementById("memberPhoto").src =
+        data.photo_link || "https://placehold.co/200x200";
 
-document.getElementById("memberJoiningDate").innerHTML=
-"Joining Date : "+data.joining_date;
+        document.getElementById("memberName").innerHTML =
+        "Name : " + data.name;
 
-if(data.id_card_link){
+        document.getElementById("memberMobile").innerHTML =
+        "Mobile : " + data.mobile;
 
-document.getElementById("memberIdCard").href=data.id_card_link;
+        document.getElementById("memberMemberId").innerHTML =
+        "Member ID : " + data.member_id;
 
-}else{
+        document.getElementById("memberBranch").innerHTML =
+        "Branch : " + data.branch;
 
-document.getElementById("memberIdCard").style.display="none";
+        document.getElementById("memberStatus").innerHTML =
+        "Status : " + data.status;
 
-}
+        document.getElementById("memberJoiningDate").innerHTML =
+        "Joining Date : " + data.joining_date;
 
-message.innerHTML="";
+        if(data.id_card_link){
 
-}catch(err){
+            document.getElementById("memberIdCard").href=data.id_card_link;
 
-console.error(err);
+            document.getElementById("memberIdCard").style.display="inline-block";
 
-message.innerHTML=err.message;
+        }else{
 
-}
+            document.getElementById("memberIdCard").style.display="none";
 
-}
+        }
+
+        message.innerHTML="";
+
+        showPage("profile");
+
+    }catch(err){
+
+        console.error(err);
+
+        message.innerHTML=err.message;
+      // ========================================
+// MSIM WEBSITE
+// SCRIPT.JS
+// PART 2 OF 2
+// ========================================
+
+// =========================
+// LOGOUT
+// =========================
 
 function logout(){
 
-location.reload();
+    if(confirm("Are you sure you want to logout?")){
+
+        closeMenu();
+
+        location.reload();
+
+    }
+
+}
+
+// =========================
+// ACTIVE MENU
+// =========================
+
+function setActiveMenu(element){
+
+    const items=document.querySelectorAll(".drawer-menu a");
+
+    items.forEach(item=>{
+
+        item.classList.remove("active");
+
+    });
+
+    if(element){
+
+        element.classList.add("active");
+
+    }
+
+}
+
+// =========================
+// MENU CLICK EVENTS
+// =========================
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const menuItems=document.querySelectorAll(".drawer-menu a");
+
+    menuItems.forEach(item=>{
+
+        item.addEventListener("click",function(){
+
+            setActiveMenu(this);
+
+        });
+
+    });
+
+});
+
+// =========================
+// CLOSE DRAWER WHEN
+// OVERLAY CLICKED
+// =========================
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const overlay=document.getElementById("drawerOverlay");
+
+    if(overlay){
+
+        overlay.addEventListener("click",closeMenu);
+
+    }
+
+});
+
+// =========================
+// ESC KEY SUPPORT
+// =========================
+
+document.addEventListener("keydown",(e)=>{
+
+    if(e.key==="Escape"){
+
+        closeMenu();
+
+    }
+
+});
+
+// =========================
+// RIPPLE BUTTON EFFECT
+// =========================
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const buttons=document.querySelectorAll("button,.gold-btn");
+
+    buttons.forEach(button=>{
+
+        button.addEventListener("click",()=>{
+
+            button.style.transform="scale(.96)";
+
+            setTimeout(()=>{
+
+                button.style.transform="";
+
+            },150);
+
+        });
+
+    });
+
+});
+
+// =========================
+// IMAGE FALLBACK
+// =========================
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const photo=document.getElementById("memberPhoto");
+
+    if(photo){
+
+        photo.onerror=function(){
+
+            this.src="https://placehold.co/200x200?text=Member";
+
+        };
+
+    }
+
+});
+
+// =========================
+// PREVENT DOUBLE LOGIN CLICK
+// =========================
+
+let loginProcessing=false;
+
+const originalLogin=login;
+
+login=async function(){
+
+    if(loginProcessing) return;
+
+    loginProcessing=true;
+
+    try{
+
+        await originalLogin();
+
+    }finally{
+
+        loginProcessing=false;
+
+    }
+
+};
+
+// =========================
+// END
+// =========================
+
+    }
 
 }
