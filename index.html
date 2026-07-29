@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MSIM Member Portal</title>
+<title>Mission Syedi Ikram E Millat - Member Portal</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,9 +21,11 @@
 
 <body>
 
-<!-- LOGIN PAGE -->
+<!-- =========================
+     LOGIN PAGE
+========================== -->
 
-<div class="login-page">
+<div class="login-page" id="loginPage">
 
 <div class="login-box">
 
@@ -34,18 +36,20 @@ alt="MSIM Logo">
 
 <h1>Mission Syedi Ikram E Millat</h1>
 
-<p>Member Portal</p>
+<p class="login-subtitle">
+Member Portal
+</p>
 
 <input
 type="tel"
 id="mobile"
-placeholder="Mobile Number"
+placeholder="Enter Mobile Number"
 autocomplete="tel">
 
 <input
 type="password"
 id="password"
-placeholder="Password"
+placeholder="Enter Password"
 autocomplete="current-password">
 
 <button id="loginBtn">
@@ -58,18 +62,20 @@ Login
 
 </div>
 
-<!-- DASHBOARD -->
+<!-- =========================
+     DASHBOARD
+========================== -->
 
 <div id="dashboard" style="display:none;">
 
-<header class="top-header premium-header">
+<header class="top-header">
 
 <div class="header-left">
 
 <img
 src="20260716_202708.png"
 class="header-logo"
-alt="MSIM Logo">
+alt="Mission Logo">
 
 <div>
 
@@ -103,67 +109,61 @@ class="menu-overlay"
 onclick="toggleMenu()">
 
 </div>
+
 <div
 id="sideMenu"
-class="side-menu premium-drawer">
+class="side-menu">
 
 <div class="drawer-header">
 
 <img
 src="20260716_202708.png"
 class="drawer-logo"
-alt="MSIM Logo">
+alt="Mission Logo">
 
 <h2>
 Mission Syedi Ikram E Millat
 </h2>
 
 <p>
-Kurla West & East Mumbai
+Member Portal
 </p>
 
 </div>
 
 <div class="drawer-menu">
 
-<button
-onclick="showPage('profile');toggleMenu();">
+<button onclick="showPage('profile');toggleMenu();">
 
 👤 My Profile
 
 </button>
 
-<button
-onclick="showPage('duties');toggleMenu();">
+<button onclick="showPage('duties');toggleMenu();">
 
 📋 My Duties
 
 </button>
 
-<button
-onclick="showPage('announcements');toggleMenu();">
+<button onclick="showPage('announcements');toggleMenu();">
 
 📢 Announcements
 
 </button>
 
-<button
-onclick="showPage('contacts');toggleMenu();">
+<button onclick="showPage('contacts');toggleMenu();">
 
 📞 Contacts
 
 </button>
 
-<button
-onclick="showPage('settings');toggleMenu();">
+<button onclick="showPage('settings');toggleMenu();">
 
 ⚙ Settings
 
 </button>
 
-<button
-class="logout-btn"
-onclick="logout()">
+<button class="logout-btn" onclick="logout()">
 
 🚪 Logout
 
@@ -174,35 +174,62 @@ onclick="logout()">
 </div>
 
 <main class="main-content">
+  <!-- =========================
+     PROFILE PAGE
+========================== -->
 
-<section
-id="profilePage">
+<section id="profilePage" class="page">
 
 <h2 class="section-title">
-
-Member Profile
-
+👤 Member Profile
 </h2>
 
 <div class="profile-card">
+
+<div class="profile-image-box">
 
 <img
 id="memberPhoto"
 class="profile-photo"
 src=""
-alt="Profile Photo">
+alt="Member Photo">
 
-<h3 id="memberName"></h3>
+</div>
 
+<h3 id="memberName">
+Name
+</h3>
+
+<div class="member-details">
+
+<div class="detail-item">
+<span class="detail-label">📱 Mobile</span>
 <p id="memberMobile"></p>
+</div>
 
+<div class="detail-item">
+<span class="detail-label">🪪 Member ID</span>
 <p id="memberMemberId"></p>
+</div>
 
+<div class="detail-item">
+<span class="detail-label">🏢 Branch</span>
 <p id="memberBranch"></p>
+</div>
 
+<div class="detail-item">
+<span class="detail-label">✅ Status</span>
 <p id="memberStatus"></p>
+</div>
 
+<div class="detail-item">
+<span class="detail-label">📅 Joining Date</span>
 <p id="memberJoiningDate"></p>
+</div>
+
+</div>
+
+<div class="profile-buttons">
 
 <a
 id="memberIdCard"
@@ -213,11 +240,28 @@ target="_blank">
 
 </a>
 
+<button
+class="gold-btn"
+disabled>
+
+📷 QR ID
+(Coming Soon)
+
+</button>
+
+</div>
+
 </div>
 
 </section>
+
+<!-- =========================
+     DUTIES PAGE
+========================== -->
+
 <section
 id="dutiesPage"
+class="page"
 style="display:none;">
 
 <h2 class="section-title">
@@ -228,14 +272,24 @@ style="display:none;">
 
 <div class="card">
 
-<p>No Duties Available</p>
+<h3>Current Duties</h3>
+
+<p>
+
+No duties assigned yet.
+
+</p>
 
 </div>
 
 </section>
+<!-- =========================
+     ANNOUNCEMENTS PAGE
+========================== -->
 
 <section
 id="announcementsPage"
+class="page"
 style="display:none;">
 
 <h2 class="section-title">
@@ -246,14 +300,25 @@ style="display:none;">
 
 <div class="card">
 
-<p>No Announcements Available</p>
+<h3>Latest Announcements</h3>
+
+<p>
+
+No announcements available.
+
+</p>
 
 </div>
 
 </section>
 
+<!-- =========================
+     CONTACTS PAGE
+========================== -->
+
 <section
 id="contactsPage"
+class="page"
 style="display:none;">
 
 <h2 class="section-title">
@@ -264,22 +329,37 @@ style="display:none;">
 
 <div class="card">
 
-<p><strong>Mission Syedi Ikram E Millat</strong></p>
+<h3>Mission Office</h3>
 
-<br>
+<p>
 
-<p>Kurla West & East Mumbai</p>
+Mission Syedi Ikram E Millat
 
-<br>
+</p>
 
-<p>📱 9867310766</p>
+<p>
+
+Kurla West & East Mumbai
+
+</p>
+
+<p>
+
+📱 9867310766
+
+</p>
 
 </div>
 
 </section>
 
+<!-- =========================
+     SETTINGS PAGE
+========================== -->
+
 <section
 id="settingsPage"
+class="page"
 style="display:none;">
 
 <h2 class="section-title">
@@ -290,7 +370,13 @@ style="display:none;">
 
 <div class="card">
 
-<p>Settings module will be available soon.</p>
+<h3>Application Settings</h3>
+
+<p>
+
+More settings will be added in future updates.
+
+</p>
 
 </div>
 
@@ -298,20 +384,30 @@ style="display:none;">
 
 </main>
 
-</div>
 <footer class="footer">
+
+<p>
 
 © 2026 Mission Syedi Ikram E Millat
 
-<br>
+</p>
+
+<p>
 
 All Rights Reserved
 
+</p>
+
 </footer>
+<!-- =========================
+     JAVASCRIPT FILES
+========================== -->
 
 <script src="config.js"></script>
 
 <script src="script.js"></script>
+
+</div>
 
 </body>
 
