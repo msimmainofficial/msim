@@ -157,7 +157,13 @@ document.getElementById("memberIdCard").href=data.id_card_link;
 document.getElementById("memberIdCard").style.display="none";
 
 }
+    
+localStorage.setItem(
+"memberMobile",
+data.mobile
+);
 
+loadDuties(data.mobile);
 message.innerHTML="";
 
 showPage("profile");
@@ -166,7 +172,87 @@ showPage("profile");
 
 console.error(err);
 
-message.innerHTML=err.message;
+message.innerHTML=err.message
+}
+
+}
+// ===========================
+// LOAD LIVE DUTIES
+// ===========================
+
+async function loadDuties(memberMobile){
+
+const container=document.getElementById("dutiesContainer");
+
+container.innerHTML="<div class='card'><p>Loading duties...</p></div>";
+
+const {data,error}=await supabaseClient
+
+.from("duties")
+
+.select("*")
+
+.eq("member_mobile",memberMobile)
+
+.order("created_at",{ascending:false});
+
+if(error){
+
+container.innerHTML=
+
+"<div class='card'><p>"+error.message+"</p></div>";
+
+return;
+
+}
+
+if(!data || data.length===0){
+
+container.innerHTML=
+
+`<div class="card">
+
+<h3>No Duties Available</h3>
+
+<p>No duty has been assigned yet.</p>
+
+</div>`;
+
+return;
+
+}
+
+let html="";
+
+data.forEach(duty=>{
+
+html+=`
+
+<div class="card">
+
+<h3>📋 ${duty.duty_title}</h3>
+
+<p><strong>Description:</strong><br>${duty.duty_description}</p>
+
+<br>
+
+<p><strong>Assigned By:</strong> ${duty.assigned_by}</p>
+
+<p><strong>Assigned Date:</strong> ${duty.assigned_date}</p>
+
+<p><strong>Status:</strong> ${duty.status}</p>
+
+<p><strong>Completed Date:</strong> ${duty.completed_date || "-"}</p>
+
+</div>
+
+`;
+
+});
+
+container.innerHTML=html;
+
+}
 // ==========================================
 // MSIM WEBSITE
 // SCRIPT.JS
