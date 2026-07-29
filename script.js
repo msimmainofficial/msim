@@ -163,7 +163,7 @@ localStorage.setItem(
 data.mobile
 );
 
-loadDuties(data.mobile);
+// loadDuties(data.mobile);
 message.innerHTML="";
 
 showPage("profile");
