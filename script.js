@@ -1,6 +1,7 @@
 document.getElementById("loginBtn").addEventListener("click", login);
 
 function showPage(page) {
+
   document.getElementById("profilePage").style.display = "none";
   document.getElementById("dutiesPage").style.display = "none";
   document.getElementById("announcementsPage").style.display = "none";
@@ -24,30 +25,19 @@ async function login() {
 
   try {
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from("members")
-      .select("*");
-
-    alert("Query Finished");
-
-    console.log(data);
-    console.log(error);
+      .select("*")
+      .eq("mobile", mobile)
+      .eq("password", password)
+      .single();
 
     if (error) {
       message.innerHTML = error.message;
       return;
     }
 
-    if (!data || data.length === 0) {
-      message.innerHTML = "No members found in database";
-      return;
-    }
-
-    const member = data.find(
-      m => m.mobile == mobile && m.password == password
-    );
-
-    if (!member) {
+    if (!data) {
       message.innerHTML = "Invalid Mobile or Password";
       return;
     }
@@ -56,18 +46,17 @@ async function login() {
     document.getElementById("dashboard").style.display = "block";
 
     document.getElementById("memberName").innerHTML =
-      "Name : " + member.name;
+      "Name : " + data.name;
 
     document.getElementById("memberMobile").innerHTML =
-      "Mobile : " + member.mobile;
+      "Mobile : " + data.mobile;
 
     message.innerHTML = "";
 
   } catch (err) {
 
-    alert(err.message);
-
     message.innerHTML = err.message;
+    console.error(err);
 
   }
 
