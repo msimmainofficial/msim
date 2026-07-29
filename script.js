@@ -172,7 +172,7 @@ showPage("profile");
 
 console.error(err);
 
-message.innerHTML=err.message
+message.innerHTML=err.message;
 }
 
 }
