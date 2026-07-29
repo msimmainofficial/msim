@@ -1,8 +1,12 @@
-// ========================================
+// ==========================================
 // MSIM WEBSITE
 // SCRIPT.JS
 // PART 1 OF 2
-// ========================================
+// ==========================================
+
+// ===========================
+// LOGIN BUTTON
+// ===========================
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -12,361 +16,327 @@ document.addEventListener("DOMContentLoaded", () => {
         loginBtn.addEventListener("click", login);
     }
 
-    closeMenu();
-
 });
 
-// =========================
+// ===========================
+// MENU
+// ===========================
+
+function toggleMenu() {
+
+    const menu = document.getElementById("sideMenu");
+    const overlay = document.getElementById("menuOverlay");
+
+    menu.classList.toggle("active");
+    overlay.classList.toggle("active");
+
+}
+
+function closeMenu() {
+
+    document.getElementById("sideMenu").classList.remove("active");
+    document.getElementById("menuOverlay").classList.remove("active");
+
+}
+
+// ===========================
 // PAGE NAVIGATION
-// =========================
+// ===========================
 
 function showPage(page){
 
-    const pages = [
-        "profile",
-        "duties",
-        "announcements",
-        "contacts",
-        "settings"
-    ];
+const pages=[
+"profile",
+"duties",
+"announcements",
+"contacts",
+"settings"
+];
 
-    pages.forEach(p=>{
+pages.forEach(function(item){
 
-        const element=document.getElementById(p+"Page");
+const section=document.getElementById(item+"Page");
 
-        if(element){
-            element.style.display="none";
-        }
+if(section){
 
-    });
-
-    const current=document.getElementById(page+"Page");
-
-    if(current){
-        current.style.display="block";
-    }
-
-    closeMenu();
+section.style.display="none";
 
 }
 
-// =========================
-// DRAWER
-// =========================
+});
 
-function openMenu(){
+document.getElementById(page+"Page").style.display="block";
 
-    const drawer=document.getElementById("drawer");
-    const overlay=document.getElementById("drawerOverlay");
-
-    if(drawer){
-        drawer.classList.add("active");
-    }
-
-    if(overlay){
-        overlay.classList.add("active");
-    }
+closeMenu();
 
 }
 
-function closeMenu(){
-
-    const drawer=document.getElementById("drawer");
-    const overlay=document.getElementById("drawerOverlay");
-
-    if(drawer){
-        drawer.classList.remove("active");
-    }
-
-    if(overlay){
-        overlay.classList.remove("active");
-    }
-
-}
-
-function toggleMenu(){
-
-    const drawer=document.getElementById("drawer");
-
-    if(!drawer) return;
-
-    if(drawer.classList.contains("active")){
-        closeMenu();
-    }else{
-        openMenu();
-    }
-
-}
-
-// =========================
+// ===========================
 // LOGIN
-// =========================
+// ===========================
 
 async function login(){
 
-    const mobile=document.getElementById("mobile").value.trim();
+const mobile=document.getElementById("mobile").value.trim();
 
-    const password=document.getElementById("password").value.trim();
+const password=document.getElementById("password").value.trim();
 
-    const message=document.getElementById("message");
+const message=document.getElementById("message");
 
-    if(!mobile || !password){
+if(!mobile || !password){
 
-        message.innerHTML="Enter Mobile Number & Password";
+message.innerHTML="Enter Mobile Number & Password";
 
-        return;
+return;
 
-    }
+}
 
-    message.innerHTML="Checking...";
+message.innerHTML="Checking...";
 
-    try{
+try{
 
-        const {data,error}=await supabaseClient
+const {data,error}=await supabaseClient
 
-        .from("members")
+.from("members")
 
-        .select("*")
+.select("*")
 
-        .eq("mobile",mobile)
+.eq("mobile",mobile)
 
-        .eq("password",password)
+.eq("password",password)
 
-        .maybeSingle();
+.maybeSingle();
 
-        if(error){
+if(error){
 
-            message.innerHTML=error.message;
+message.innerHTML=error.message;
 
-            return;
+return;
 
-        }
+}
 
-        if(!data){
+if(!data){
 
-            message.innerHTML="Invalid Mobile Number or Password";
+message.innerHTML="Invalid Mobile Number or Password";
 
-            return;
+return;
 
-        }
+}
 
-        document.querySelector(".login-page").style.display="none";
+document.getElementById("loginPage").style.display="none";
 
-        document.getElementById("dashboard").style.display="block";
+document.getElementById("dashboard").style.display="block";
 
-        document.getElementById("memberPhoto").src =
-        data.photo_link || "https://placehold.co/200x200";
+document.getElementById("memberPhoto").src=
+data.photo_link || "https://placehold.co/200x200";
 
-        document.getElementById("memberName").innerHTML =
-        "Name : " + data.name;
+document.getElementById("memberName").innerHTML=
+data.name;
 
-        document.getElementById("memberMobile").innerHTML =
-        "Mobile : " + data.mobile;
+document.getElementById("memberMobile").innerHTML=
+data.mobile;
 
-        document.getElementById("memberMemberId").innerHTML =
-        "Member ID : " + data.member_id;
+document.getElementById("memberMemberId").innerHTML=
+data.member_id;
 
-        document.getElementById("memberBranch").innerHTML =
-        "Branch : " + data.branch;
+document.getElementById("memberBranch").innerHTML=
+data.branch;
 
-        document.getElementById("memberStatus").innerHTML =
-        "Status : " + data.status;
+document.getElementById("memberStatus").innerHTML=
+data.status;
 
-        document.getElementById("memberJoiningDate").innerHTML =
-        "Joining Date : " + data.joining_date;
+document.getElementById("memberJoiningDate").innerHTML=
+data.joining_date;
 
-        if(data.id_card_link){
+if(data.id_card_link){
 
-            document.getElementById("memberIdCard").href=data.id_card_link;
+document.getElementById("memberIdCard").href=data.id_card_link;
 
-            document.getElementById("memberIdCard").style.display="inline-block";
+}else{
 
-        }else{
+document.getElementById("memberIdCard").style.display="none";
 
-            document.getElementById("memberIdCard").style.display="none";
+}
 
-        }
+message.innerHTML="";
 
-        message.innerHTML="";
+showPage("profile");
 
-        showPage("profile");
+}catch(err){
 
-    }catch(err){
+console.error(err);
 
-        console.error(err);
-
-        message.innerHTML=err.message;
-      // ========================================
+message.innerHTML=err.message;
+// ==========================================
 // MSIM WEBSITE
 // SCRIPT.JS
 // PART 2 OF 2
-// ========================================
+// ==========================================
 
-// =========================
+// ===========================
 // LOGOUT
-// =========================
+// ===========================
 
 function logout(){
 
-    if(confirm("Are you sure you want to logout?")){
+if(confirm("Are you sure you want to logout?")){
 
-        closeMenu();
+closeMenu();
 
-        location.reload();
+document.getElementById("dashboard").style.display="none";
 
-    }
+document.getElementById("loginPage").style.display="flex";
 
-}
+document.getElementById("mobile").value="";
 
-// =========================
-// ACTIVE MENU
-// =========================
+document.getElementById("password").value="";
 
-function setActiveMenu(element){
+document.getElementById("message").innerHTML="";
 
-    const items=document.querySelectorAll(".drawer-menu a");
-
-    items.forEach(item=>{
-
-        item.classList.remove("active");
-
-    });
-
-    if(element){
-
-        element.classList.add("active");
-
-    }
+showPage("profile");
 
 }
 
-// =========================
-// MENU CLICK EVENTS
-// =========================
+}
 
-document.addEventListener("DOMContentLoaded",()=>{
-
-    const menuItems=document.querySelectorAll(".drawer-menu a");
-
-    menuItems.forEach(item=>{
-
-        item.addEventListener("click",function(){
-
-            setActiveMenu(this);
-
-        });
-
-    });
-
-});
-
-// =========================
-// CLOSE DRAWER WHEN
-// OVERLAY CLICKED
-// =========================
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-    const overlay=document.getElementById("drawerOverlay");
-
-    if(overlay){
-
-        overlay.addEventListener("click",closeMenu);
-
-    }
-
-});
-
-// =========================
-// ESC KEY SUPPORT
-// =========================
-
-document.addEventListener("keydown",(e)=>{
-
-    if(e.key==="Escape"){
-
-        closeMenu();
-
-    }
-
-});
-
-// =========================
-// RIPPLE BUTTON EFFECT
-// =========================
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-    const buttons=document.querySelectorAll("button,.gold-btn");
-
-    buttons.forEach(button=>{
-
-        button.addEventListener("click",()=>{
-
-            button.style.transform="scale(.96)";
-
-            setTimeout(()=>{
-
-                button.style.transform="";
-
-            },150);
-
-        });
-
-    });
-
-});
-
-// =========================
+// ===========================
 // IMAGE FALLBACK
-// =========================
+// ===========================
 
 document.addEventListener("DOMContentLoaded",()=>{
 
-    const photo=document.getElementById("memberPhoto");
+const photo=document.getElementById("memberPhoto");
 
-    if(photo){
+if(photo){
 
-        photo.onerror=function(){
+photo.onerror=function(){
 
-            this.src="https://placehold.co/200x200?text=Member";
+this.src="https://placehold.co/200x200?text=Member";
 
-        };
+};
 
-    }
+}
 
 });
 
-// =========================
-// PREVENT DOUBLE LOGIN CLICK
-// =========================
+// ===========================
+// OVERLAY CLICK
+// ===========================
 
-let loginProcessing=false;
+document.addEventListener("DOMContentLoaded",()=>{
+
+const overlay=document.getElementById("menuOverlay");
+
+if(overlay){
+
+overlay.addEventListener("click",closeMenu);
+
+}
+
+});
+
+// ===========================
+// ESC KEY CLOSE
+// ===========================
+
+document.addEventListener("keydown",(event)=>{
+
+if(event.key==="Escape"){
+
+closeMenu();
+
+}
+
+});
+
+// ===========================
+// PREVENT DOUBLE LOGIN
+// ===========================
+
+let loginLoading=false;
 
 const originalLogin=login;
 
 login=async function(){
 
-    if(loginProcessing) return;
+if(loginLoading){
 
-    loginProcessing=true;
+return;
 
-    try{
+}
 
-        await originalLogin();
+loginLoading=true;
 
-    }finally{
+const btn=document.getElementById("loginBtn");
 
-        loginProcessing=false;
+if(btn){
 
-    }
+btn.disabled=true;
+
+btn.innerHTML="Please Wait...";
+
+}
+
+try{
+
+await originalLogin();
+
+}finally{
+
+loginLoading=false;
+
+if(btn){
+
+btn.disabled=false;
+
+btn.innerHTML="Login";
+
+}
+
+}
 
 };
 
-// =========================
-// END
-// =========================
+// ===========================
+// BUTTON EFFECT
+// ===========================
 
-    }
+document.addEventListener("DOMContentLoaded",()=>{
+
+const buttons=document.querySelectorAll("button");
+
+buttons.forEach(button=>{
+
+button.addEventListener("click",()=>{
+
+button.style.transform="scale(.97)";
+
+setTimeout(()=>{
+
+button.style.transform="";
+
+},120);
+
+});
+
+});
+
+});
+
+// ===========================
+// INITIAL PAGE
+// ===========================
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+showPage("profile");
+
+});
+
+// ==========================================
+// END OF SCRIPT.JS
+// ==========================================
+
+}
 
 }
