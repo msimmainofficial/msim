@@ -4,11 +4,23 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>MSIM Member Portal</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="style.css">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -20,7 +32,10 @@
 
 <div class="login-box">
 
-<img src="20260716_202708.png" class="logo" alt="MSIM Logo">
+<img
+src="20260716_202708.png"
+class="logo"
+alt="MSIM Logo">
 
 <h1>Mission Syedi Ikram E Millat</h1>
 
@@ -29,17 +44,17 @@
 <input
 type="tel"
 id="mobile"
-placeholder="Mobile Number"
->
+placeholder="Mobile Number">
 
 <input
 type="password"
 id="password"
-placeholder="Password"
->
+placeholder="Password">
 
 <button id="loginBtn">
+
 Login
+
 </button>
 
 <p id="message"></p>
@@ -48,45 +63,103 @@ Login
 
 </div>
 
-<div id="dashboard" style="display:none;">
+<div id="dashboard"
+style="display:none;">
 
-<header>
+<header class="top-header">
 
-<h2>MSIM Dashboard</h2>
+<div class="header-left">
 
-<button onclick="logout()">
-Logout
-</button>
+<img
+src="20260716_202708.png"
+class="header-logo">
+
+<div>
+
+<h1 class="header-title">
+
+Mission Syedi Ikram E Millat
+
+</h1>
+
+<p class="header-subtitle">
+
+Kurla West & East Mumbai
+(9867310766)
+
+</p>
+
+</div>
+
+</div>
+
+<div
+class="menu-btn"
+onclick="toggleMenu()">
+
+☰
+
+</div>
 
 </header>
 
-<nav>
+<div
+id="sideMenu"
+class="side-menu">
 
-<button onclick="showPage('profile')">
-Profile
+<button
+onclick="showPage('profile');
+toggleMenu();">
+
+👤 My Profile
+
 </button>
 
-<button onclick="showPage('duties')">
-Duties
+<button
+onclick="showPage('duties');
+toggleMenu();">
+
+📋 My Duties
+
 </button>
 
-<button onclick="showPage('announcements')">
-Announcements
+<button
+onclick="showPage('announcements');
+toggleMenu();">
+
+📢 Announcements
+
 </button>
 
-<button onclick="showPage('contacts')">
-Contacts
+<button
+onclick="showPage('contacts');
+toggleMenu();">
+
+📞 Contacts
+
 </button>
 
-</nav>
+<button
+onclick="logout()">
+
+🚪 Logout
+
+</button>
+
+</div>
 
 <main>
-
-<section id="profilePage">
+  <section id="profilePage">
 
 <h3>Member Profile</h3>
 
-<img id="memberPhoto" class="profile-photo">
+<img
+id="memberPhoto"
+class="profile-photo"
+src=""
+alt="Profile Photo">
+
+<div class="profile-card">
 
 <p id="memberName"></p>
 
@@ -103,8 +176,12 @@ Contacts
 <a
 id="memberIdCard"
 target="_blank">
-View ID Card
+
+🪪 View ID Card
+
 </a>
+
+</div>
 
 </section>
 
@@ -112,9 +189,11 @@ View ID Card
 id="dutiesPage"
 style="display:none;">
 
-<h3>My Duties</h3>
+<h3>📋 My Duties</h3>
 
-<p>Coming Soon...</p>
+<p>
+No Duties Available
+</p>
 
 </section>
 
@@ -122,9 +201,11 @@ style="display:none;">
 id="announcementsPage"
 style="display:none;">
 
-<h3>Announcements</h3>
+<h3>📢 Announcements</h3>
 
-<p>Coming Soon...</p>
+<p>
+No Announcements
+</p>
 
 </section>
 
@@ -132,9 +213,20 @@ style="display:none;">
 id="contactsPage"
 style="display:none;">
 
-<h3>Contacts</h3>
+<h3>📞 Contacts</h3>
 
-<p>Coming Soon...</p>
+<p>
+Mission Syedi Ikram E Millat
+
+<br><br>
+
+Kurla West & East Mumbai
+
+<br><br>
+
+📱 9867310766
+
+</p>
 
 </section>
 
